@@ -13,8 +13,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        python-version: ["3.9", "3.12", "3.13"]
+        # ubuntu-24.04（ubuntu-latest）已经没有 Python 3.9，所以 3.9 固定在 22.04 上跑。
+        include:
+          - os: ubuntu-22.04
+            python-version: "3.9"
+          - os: ubuntu-latest
+            python-version: "3.12"
+          - os: ubuntu-latest
+            python-version: "3.13"
+          - os: windows-latest
+            python-version: "3.9"
+          - os: windows-latest
+            python-version: "3.12"
+          - os: windows-latest
+            python-version: "3.13"
     steps:
       - uses: actions/checkout@v4
 

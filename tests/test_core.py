@@ -29,7 +29,9 @@ def touch(path: Path, content: bytes = b"x") -> Path:
 class TempDirCase(unittest.TestCase):
     def setUp(self) -> None:
         self._tmp = tempfile.TemporaryDirectory()
-        self.root = Path(self._tmp.name)
+        # resolve()：Windows 的 TEMP 可能是 8.3 短路径（RUNNER~1/AppData），
+        # 而 build_plan 内部会把路径规范化成长路径，两边统一后才能比较。
+        self.root = Path(self._tmp.name).resolve()
 
     def tearDown(self) -> None:
         self._tmp.cleanup()
@@ -178,7 +180,7 @@ class ApplyAndUndoTests(TempDirCase):
         logs = self.root / "logs"
         touch(self.root / "a.txt")
         log = apply_plan(build_plan(self.root, by="ext"), log_dir=logs)
-        self.assertEqual(Path(log).parent, logs)  # type: ignore[arg-type]
+        self.assertEqual(Path(log).parent.resolve(), logs.resolve())  # type: ignore[arg-type]
         self.assertEqual(latest_log(self.root), None)
 
 

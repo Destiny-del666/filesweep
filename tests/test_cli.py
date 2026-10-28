@@ -15,7 +15,7 @@ from filesweep.cli import main  # noqa: E402
 class CliTests(unittest.TestCase):
     def setUp(self) -> None:
         self._tmp = tempfile.TemporaryDirectory()
-        self.root = Path(self._tmp.name)
+        self.root = Path(self._tmp.name).resolve()
 
     def tearDown(self) -> None:
         self._tmp.cleanup()
