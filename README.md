@@ -1,5 +1,7 @@
 # filesweep
 
+[![CI](https://github.com/Destiny-del666/filesweep/actions/workflows/ci.yml/badge.svg)](https://github.com/Destiny-del666/filesweep/actions/workflows/ci.yml)
+
 > 把堆成山的下载目录整理干净：一条命令归位，一条命令撤回。
 
 `filesweep` 是一个零依赖的 Python 命令行小工具，用来整理杂乱目录里的文件。它按**扩展名**、**文件类型**或**修改日期**把顶层文件分进子目录，默认先给你看计划，移动之后还会写一份撤销日志——反悔时一键还原。
